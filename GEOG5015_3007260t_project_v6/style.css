@@ -1,0 +1,267 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 20px;
+  line-height: 30px;
+}
+h2 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+h3 {
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 1em;
+  color: #ccc;
+}
+a {
+  text-decoration: none;
+  color: #2dc4b2;
+}
+
+.sidebar {
+  flex: 0 0 20%;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  transition: flex 0.3s;
+  overflow: auto;
+  position: relative;
+  z-index: 1;
+}
+.sidebar.collapsed {
+  flex: 0 0 5%;
+}
+.sidebar.collapsed .text {
+  display: none;
+}
+.sidebar.collapsed .icon {
+  display: inline;
+}
+.sidebar.collapsed section {
+  margin-bottom: 10px;
+}
+.sidebar.collapsed h2 {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+.sidebar.collapsed p {
+  display: none;
+}
+
+.sidebar-content {
+  padding: 20px;
+}
+
+.toggle-btn {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#method {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#method-button .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#method-button .text {
+  font-size: 1.2em;
+}
+#method-console {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#timeshift {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#timeshift-btn .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#timeshift-btn .text {
+  font-size: 1.2em;
+}
+#time-console {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#dateSelect {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#date-select-btn .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#date-select-btn .text {
+  font-size: 1.2em;
+}
+#date-console {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#heatmap {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#heatmap-btn .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#heatmap-btn .text {
+  font-size: 1.2em;
+}
+#sidebarButton {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#author-info {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#author-info-btn .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#author-info-btn .text {
+  font-size: 1.2em;
+}
+#info-console {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#reset {
+  font-family: Arial, sans-serif;
+  padding-top: 10px;
+  align-items: center;
+}
+#reset-btn .icon {
+  font-size: 1.5em;
+  margin-right: 0.5em;
+}
+#reset-btn .text {
+  font-size: 1.2em;
+}
+#reset-console {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: auto;
+}
+
+label {
+  font-size: 0.9em;
+  margin: 0;
+}
+
+input[type="radio"] {
+  transform: scale(0.8);
+  margin-right: 5px;
+}
+
+#date-input {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 10px 0;
+}
+
+#floating-box {
+  position: fixed;
+  right: 10px;
+  bottom: 2%;
+  width: 20%;
+  height: 10%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 10000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+#legend {
+  position: fixed;
+  right: 10px;
+  height: 20%;
+  bottom: 15%;
+  width: 20%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 9998;
+  font-size: 12px;
+  overflow-y: auto;
+}
+
+.legend-key {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+.legend-color-box {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid #fff;
+}
+
+.mapboxgl-ctrl-scale {
+  background-color: transparent !important;
+}

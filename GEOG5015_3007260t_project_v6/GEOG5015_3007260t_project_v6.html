@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>GEOG5015_3007260t_project_v6_Engver_DONE</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8' />
+  <title>Crime Map</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
+  <!-- Mapbox JS API !-->
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+  <!-- Mapbox CSS!-->
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+  <!--  Fontawesome API  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div id='map'></div>
+  <!-- Sidebar part -->
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <!-- 1. Crime method -->
+    <section id="method">
+      <button id="method-button" data-target="method-console">
+        <i class="icon"><i class="fas fa-search"></i></i> <span class="text">Display data by weapon type</span>
+      </button>
+      <p>Filter the weapon type</p>
+      <div class='row' id='method-console' style="display: none; background-color: #333">
+
+        <!-- Set radio for "METHOD" -->
+        <input id='all' type='radio' name='toggle' value='all' checked='checked'>
+        <label for='all'>All</label>
+        <input id='GUN' type='radio' name='toggle' value='GUN'>
+        <label for='GUN'>Gun</label>
+        <input id='KNIFE' type='radio' name='toggle' value='KNIFE'>
+        <label for='KNIFE'>Knife</label>
+      </div>
+    </section>
+
+    <!-- 2. Filter data by timeshift -->
+    <section id="timeshift">
+      <button id="timeshift-btn" data-target="time-console">
+        <i class="icon"><i class="fas fa-sun"></i></i> <span class="text">Display data by timeshift</span>
+      </button>
+      <p>Filter the timeshift </p>
+      <div id="time-console" style="display: none; background-color: #333">
+        <h2>Select time</h2>
+        <label><input type="checkbox" id="day-checkbox" value="DAY"> Day</label>
+        <label><input type="checkbox" id="evening-checkbox" value="EVENING"> Evening</label>
+        <label><input type="checkbox" id="midnight-checkbox" value="MIDNIGHT"> Midnight</label>
+        <button id="select-all-btn">Select all</button>
+      </div>
+    </section>
+
+    <!-- 3. Date selector-->
+    <section id="dateSelect">
+      <button id="date-select-btn" data-target="date-console">
+        <i class="icon"><i class="fas fa-calendar-alt"></i></i> <span class="text">Date selector</span>
+      </button>
+      <p>Here you could see crime incidents on specific days. Note that the data is for the year 2024, so please select 2024 when entering the date. Some dates may be blank because there was no incident.</p>
+      <div id="date-console" style="display: none; background-color: #333">
+        <input type="date" id="date-input" />
+      </div>
+    </section>
+
+    <!-- 4. Heatmap -->
+    <section id="heatmap" class="heatmap-section">
+      <button id="heatmap-btn" data-target="sidebarButton">
+        <i class="icon"><i class="fas fa-fire"></i></i> <span class="text">Heatmap</span>
+      </button>
+      <p>Heatmap for ward or neighborhood cluster generated based on Latitude and Longitude. You can click it again to cancel the layer display.</p>
+      <div id="chart-console" style="display: none; background-color: #333">
+      </div>
+    </section>
+
+    <!-- 5. author and other info -->
+    <section id="author-info">
+      <button id="author-info-btn" data-target="info-console">
+        <i class="icon"><i class="fas fa-info-circle"></i></i> <span class="text">Information</span>
+      </button>
+      <p>Author, data and other information.</p>
+      <div id="info-console" style="display: none; background-color: #333; padding: 10px; color: #fff;">
+        <h1>About This Map</h1>
+        <p>This interactive map was created to visualize crime incidents in the District of Columbia for 2024. The data is sourced from <a href='https://catalog.data.gov/dataset/crime-incidents-in-2024' style="color: #00f;">Crime Data</a>, and the map aims to provide insights for better urban safety awareness.</p>
+        <p>Data accessed time: 13/02/2025.</p>
+
+        <p>Author: 3007260t | Contact: <a href="3007260t@glasgow.gla.ac.uk.com" style="color: #00f;">3007260t@glasgow.gla.ac.uk.com</a></p>
+        <p>Disclaimer: The data is for course project purposes only and may not reflect real-time updates.</p>
+      </div>
+
+    </section>
+
+    <!-- 6. Reset -->
+    <section id="reset">
+      <button id="reset-btn" data-target="reset-console">
+        <i class="fas fa-rotate-left"></i> <span class="text">Reset the data</span>
+      </button>
+      <p>Click this button and the data will be reset to no-filter style.</p>
+    </section>
+  </div>
+
+  <!--   Map-info-box located at buttom-right   -->
+  <div id="floating-box">
+    <div id='pointsInfo'>
+      <p> Hover over a data zone!</p>
+    </div>
+  </div>
+
+  <div id="legend" class="legend"></div>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
